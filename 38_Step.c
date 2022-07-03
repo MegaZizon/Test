@@ -66,7 +66,7 @@ void steps(unsigned int n) {
 			else if(a==0){							//첫번째 출력이라면, 괄호열음 
 				printf("(%d",array[a]);
 			}
-			else if(array[a]!=0){					//중간 출력과정 중이라면, 그냥 출력 
+			else if(array[a]!=0){					//중간 출력과정 중이라면, 그냥 출력.
 				printf(", %d",array[a]);
 			}
 		}
