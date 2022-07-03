@@ -9,12 +9,12 @@ import java.awt.event.*;
 
 public class ShootingGame extends JFrame{
 	
-	boolean IsBulletshoot=false;//ÃÑ¾ËÀÌ ¹ß»çµÇ¾ú´Â°¡?
+	boolean IsBulletshoot=false;//ì´ì•Œì´ ë°œì‚¬ë˜ì—ˆëŠ”ê°€?
 	int score=0;
-	int TargetX,BulletY=280;   //Å¸°ÙÀÇ XÁÂÇ¥ BulletÀÇ YÁÂÇ¥
+	int TargetX,BulletY=280;   //íƒ€ê²Ÿì˜ Xì¢Œí‘œ Bulletì˜ Yì¢Œí‘œ
 	
 	public ShootingGame() {
-		setTitle("»ç°Ý °ÔÀÓ");
+		setTitle("ì‚¬ê²© ê²Œìž„");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container c = getContentPane();
 		c.setFocusable(true);
@@ -22,7 +22,7 @@ public class ShootingGame extends JFrame{
 		c.add(new StartPanel());
 		c.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyChar() == '\n') {	//¿£ÅÍÅ°¸¦ ´©¸£¸é ÃÑ¾ËÀÌ ¹ß»çµÊ
+				if(e.getKeyChar() == '\n') {	//ì—”í„°í‚¤ë¥¼ ëˆ„ë¥´ë©´ ì´ì•Œì´ ë°œì‚¬ë¨
 					IsBulletshoot=true;
 					
                 }
@@ -36,15 +36,15 @@ public class ShootingGame extends JFrame{
 	
 	void createMenu(Container c) {
 		JMenuBar mb = new JMenuBar();
-		JMenu menu = new JMenu("¸Þ´º");
-		JMenuItem gamestart = new JMenuItem("°ÔÀÓ½ÃÀÛ");
-		JMenuItem gameexit = new JMenuItem("°ÔÀÓÁ¾·á");
+		JMenu menu = new JMenu("ë©”ë‰´");
+		JMenuItem gamestart = new JMenuItem("ê²Œìž„ì‹œìž‘");
+		JMenuItem gameexit = new JMenuItem("ê²Œìž„ì¢…ë£Œ");
 
 		gamestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cmd = e.getActionCommand();
-				if (cmd.equals("°ÔÀÓ½ÃÀÛ")) {
-					BulletThread th =new BulletThread(c); //°ÔÀÓ½ÃÀÛÇÏ¸é ¾²·¹µå°¡ ½ÃÀÛµÊ
+				if (cmd.equals("ê²Œìž„ì‹œìž‘")) {
+					BulletThread th =new BulletThread(c); //ê²Œìž„ì‹œìž‘í•˜ë©´ ì“°ë ˆë“œê°€ ì‹œìž‘ë¨
 					th.start();
 				}
 			}
@@ -52,11 +52,11 @@ public class ShootingGame extends JFrame{
 		gameexit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cmd = e.getActionCommand();
-				if (cmd.equals("°ÔÀÓÁ¾·á")) {
-					int result = JOptionPane.showConfirmDialog(ShootingGame.this, "Á¾·áÇÏ½Ã°Ú½À´Ï±î?", "Confirm",
+				if (cmd.equals("ê²Œìž„ì¢…ë£Œ")) {
+					int result = JOptionPane.showConfirmDialog(ShootingGame.this, "ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "Confirm",
 							JOptionPane.YES_NO_OPTION);
 					if (result == JOptionPane.YES_OPTION) {
-						System.exit(0); // ´ÙÀÌ¾ó·Î±× Yes ¼±ÅÃ½Ã ÇÁ·Î±×·¥ Á¾·á
+						System.exit(0); // ë‹¤ì´ì–¼ë¡œê·¸ Yes ì„ íƒì‹œ í”„ë¡œê·¸ëž¨ ì¢…ë£Œ
 					} else {
 					}
 				}
@@ -69,36 +69,36 @@ public class ShootingGame extends JFrame{
 		setJMenuBar(mb); 
 	}
 	
-	class GamingPanel extends JPanel {  //°ÔÀÓ½ÃÀÛÀ» ´©¸£¸é È­¸é¿¡ ³ª¿À´Â ÆÐ³Î
-		ImageIcon Ta = new ImageIcon("images/chicken.jpg"); //Å¸°Ù ÀÌ¹ÌÁö
+	class GamingPanel extends JPanel {  //ê²Œìž„ì‹œìž‘ì„ ëˆ„ë¥´ë©´ í™”ë©´ì— ë‚˜ì˜¤ëŠ” íŒ¨ë„
+		ImageIcon Ta = new ImageIcon("images/chicken.jpg"); //íƒ€ê²Ÿ ì´ë¯¸ì§€
 		Image Target = Ta.getImage();
 		int bulletX = 190, bulletY = 280, targetX = 0, targetY = 0;
 		String s = "0"; 
 		
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if(IsBulletshoot == true) {// ÃÑ¾ËÀÌ ¹ß»çµÇ¸é ÃÑ¾ËÀÇ À§Ä¡ ¼öÁ¤
+			if(IsBulletshoot == true) {// ì´ì•Œì´ ë°œì‚¬ë˜ë©´ ì´ì•Œì˜ ìœ„ì¹˜ ìˆ˜ì •
 				BulletY=BulletY-5;
 				this.bulletY=BulletY;
-				if(BulletY==0) {       //ÃÑ¾ËÀÌ ³¡±îÁö ³¯¾Æ°¡¸é ÃÑ¾ËÀ» ¿ø·¡´ë·Î º¹±Í½ÃÅ´
+				if(BulletY==0) {       //ì´ì•Œì´ ëê¹Œì§€ ë‚ ì•„ê°€ë©´ ì´ì•Œì„ ì›ëž˜ëŒ€ë¡œ ë³µê·€ì‹œí‚´
 					IsBulletshoot=false;
 					BulletY=280;
 				}
 			}
-			g.fillRect(170, 290, 50, 50);  //ÃÑ
+			g.fillRect(170, 290, 50, 50);  //ì´
 			g.setColor(Color.red);
-			g.fillRect(bulletX, bulletY, 10, 10); //ÃÑ¾ËÀ§Ä¡ 
-			g.drawImage(Target, targetX, targetY, 50, 50, this); //Å¸°Ù À§Ä¡
+			g.fillRect(bulletX, bulletY, 10, 10); //ì´ì•Œìœ„ì¹˜ 
+			g.drawImage(Target, targetX, targetY, 50, 50, this); //íƒ€ê²Ÿ ìœ„ì¹˜
 			g.setFont(new Font("Arial",Font.BOLD,30));
 			g.drawString("Score:", 0, 300);  
-			g.drawString(s, 110, 300);       //Á¡¼ö
+			g.drawString(s, 110, 300);       //ì ìˆ˜
 			
 			if(bulletX>=targetX-25 && bulletX<=targetX+25 &&
-					bulletY>=targetY-25 && bulletY<=targetY+25) {//Å¸°Ù¿¡ ÃÑ¾ËÀÌ ¸íÁßÇÏ¸é
-				score++;		//½ºÄÚ¾î +1Á¡
+					bulletY>=targetY-25 && bulletY<=targetY+25) {//íƒ€ê²Ÿì— ì´ì•Œì´ ëª…ì¤‘í•˜ë©´
+				score++;		//ìŠ¤ì½”ì–´ +1ì 
 				s=Integer.toString(score);
-				g.drawString(s, 110, 300);//½ºÄÚ¾î ´Ù½Ã±×¸²
-				IsBulletshoot=false;      //ÃÑ¾ËÀ» ¿ø·¡´ë·Î º¹±Í½ÃÅ´
+				g.drawString(s, 110, 300);//ìŠ¤ì½”ì–´ ë‹¤ì‹œê·¸ë¦¼
+				IsBulletshoot=false;      //ì´ì•Œì„ ì›ëž˜ëŒ€ë¡œ ë³µê·€ì‹œí‚´
 				BulletY=280;
 				
 			}
@@ -122,18 +122,18 @@ public class ShootingGame extends JFrame{
 		}
 
 		int bulletX = 190, bulletY = 280, targetX = 0, targetY = 0;
-		GamingPanel gp = new GamingPanel(); //°ÔÀÌ¹Ö ÆÐ³ÎÀ» Á¶ÀÛÇÒ °ÍÀÌ±â ¶§¹®¿¡ ¼±¾ð
+		GamingPanel gp = new GamingPanel(); //ê²Œì´ë° íŒ¨ë„ì„ ì¡°ìž‘í•  ê²ƒì´ê¸° ë•Œë¬¸ì— ì„ ì–¸
 
 		public void run() {
 			while (true) {
 				try {
-					Thread.sleep(20);	//¾²·¹µå°¡ ½ÇÇàµÇ¸é 0.02ÃÊ ÀÖ´Ù°¡ ¿òÁ÷ÀÎ´Ù
+					Thread.sleep(20);	//ì“°ë ˆë“œê°€ ì‹¤í–‰ë˜ë©´ 0.02ì´ˆ ìžˆë‹¤ê°€ ì›€ì§ì¸ë‹¤
 
-					this.targetX = targetX + 5;//Å¸°ÙÀÇ À§Ä¡+5
+					this.targetX = targetX + 5;//íƒ€ê²Ÿì˜ ìœ„ì¹˜+5
 					this.bulletY = BulletY;
 					TargetX = this.targetX;
-					gp.getXY(targetX, bulletY, c); //°ÔÀÌ¹Ö ÆÐ³Î getXY¿¡ À§Ä¡ º¯È¯½ÃÅ² °ªµé Àü´Þ
-					if (targetX == 350) {          //Å¸°ÙÀÌ ³¡±îÁö °¬´Ù¸é ÁÂÇ¥0À¸·Î ÃÊ±âÈ­
+					gp.getXY(targetX, bulletY, c); //ê²Œì´ë° íŒ¨ë„ getXYì— ìœ„ì¹˜ ë³€í™˜ì‹œí‚¨ ê°’ë“¤ ì „ë‹¬
+					if (targetX == 350) {          //íƒ€ê²Ÿì´ ëê¹Œì§€ ê°”ë‹¤ë©´ ì¢Œí‘œ0ìœ¼ë¡œ ì´ˆê¸°í™”
 						this.targetX = 0;
 						TargetX = this.targetX;
 					}
@@ -145,7 +145,7 @@ public class ShootingGame extends JFrame{
 		}
 	}
 
-	class StartPanel extends JPanel { //´Ü¼ø Ãâ·Â ÇÁ·Î±×·¥ ½ÇÇà½Ã º¸¿©Áö´Â ÆÐ³Î
+	class StartPanel extends JPanel { //ë‹¨ìˆœ ì¶œë ¥ í”„ë¡œê·¸ëž¨ ì‹¤í–‰ì‹œ ë³´ì—¬ì§€ëŠ” íŒ¨ë„
 		ImageIcon Ta = new ImageIcon("images/chicken.jpg");
 		Image Target = Ta.getImage();
 
