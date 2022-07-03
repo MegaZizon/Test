@@ -91,7 +91,7 @@ def printStation(adj, start, dest, v):
             
         else:       #세번이상(역 3개를 거침) 실행됐을때 환승이라면
                     #Queue1과 Queue2 바탕으로 현재역까지 타고온 노선을
-                    #Queue4에 저장하고 Queue3에있는값과 비교
+                    #Queue4에 저장하고 Queue3에있는값과 비교.
             queue2=[]
             queue2=TempAr2
             twobreak=False
